@@ -1,0 +1,48 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<%- include('../compartido/menu/menu-component') %>
+
+<!-- usuario/crear.ejs-->
+<% const existeEjercicios = typeof ejercicios != 'undefined'%>
+
+<% let existeNombre = typeof nombre !== 'undefined' %>
+<% let existeDificultad = typeof dificultad !== 'undefined' %>
+<% let existeKilometros = typeof kilometros !== 'undefined' %>
+
+<h1> <%= existeEjercicios ? 'Editar' : 'Crear'%> Ejercicio</h1>
+<!-- Setear el nombre y apellido-->
+<%if(existeEjercicios){%>
+    <% existeNombre = true %>
+    <% existeDificultad = true %>
+    <% existeKilometros = true %>
+    <% nombre = ejercicios.nombre %>
+    <% dificultad = ejercicios.dificultad %>
+    <% kilometros = ejercicios.kilometros %>
+<%}%>
+
+
+<% if(typeof error !== 'undefined') { %>
+    <p>MENSAJE ERROR: <%= error %></p>
+<% } %>
+
+<form action="<%= existeEjercicios ? '/ejercicios/editarDesdeVista/'+ejercicios.id:'/ejercicios/crearDesdeVista'%>"
+      method="POST">  
+
+    <label for="nombreID">Nombre:</label>
+    <input id="nombreID" type="text" name="nombre" value="<%= existeNombre ? nombre : '' %>">
+    <br>
+
+    <label for="apellidoID">Dificultad:</label>
+    <input id="apellidoID" type="text" name="dificultad" value="<%= existeDificultad ? dificultad : '' %>">
+    <br>
+
+    <label for="kilometros">kilometros:</label>
+    <input id="kilometros" type="text"name="kilometros" value="<%= existeKilometros ? kilometros : '' %>">
+    <br>
+    <button type="submit">SUBMIT</button>
+    
+
+   
+</form>
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

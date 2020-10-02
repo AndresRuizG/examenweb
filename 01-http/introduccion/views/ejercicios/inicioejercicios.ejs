@@ -1,0 +1,48 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+<%- include('../compartido/menu/menu-component') %>
+
+
+
+<a href="/ejercicios/vista/crearejercicios">
+    <button>Crear</button>
+</a>
+<%if(typeof parametrosConsulta != 'undefined') {%>
+    <p>MENSAJE: <%= parametrosConsulta.mensaje%></p>
+<%}%>
+<form action="/ejercicios/vista/inicioejercicios"
+        method="GET">
+    <label for="busqueda">Busqueda:</label>
+    <input id="busqueda" type="text" name="busqueda">
+    <button type="submit"> Buscar</button>
+</form>
+<table>
+    <!--table row-->
+    <tr>
+        <!--table header-->
+        <th>Nombre</th>
+        <th>Dificultad</th>
+        <th>Kilometros</th>
+        <th>Acciones</th>
+    </tr>
+    <% arregloEjercicios.forEach( (objeto)=>{ %>
+        <tr>
+            <td><%= objeto.nombre %></td>
+            <td><%= objeto.dificultad %></td>
+            <td><%= objeto.kilometros %></td>
+            <td>
+                <button>Ver</button>
+                <a href="/ejercicios/vista/editarejercicios/<%= objeto.id %>"><button>Editar </button></a>
+                <form action="/ejercicios/eliminarDesdeVista/<%= objeto.id %>"
+                      method="POST"
+                >
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    <% } ) %>
+
+</table>
+<a href="/logout">
+    <button>Logout</button>
+</a>
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
